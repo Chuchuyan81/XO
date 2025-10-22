@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики-Нолики</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .menu-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .menu-button {
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 30px;
+            width: 35px;
+        }
+        
+        .menu-button:hover {
+            background-color: #0056a3;
+        }
+        
+        .menu-button span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 2px;
+        }
+        
+        .game-mode {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            min-width: 150px;
+        }
+        
+        .game-mode.active {
+            display: flex;
+        }
+        
+        .game-mode button {
+            padding: 8px 12px;
+            font-size: 0.9em;
+            background-color: white;
+            color: #333;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            margin: 2px 0;
+        }
+        
+        .game-mode button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .game-mode button.active {
+            background-color: #0074d9;
+            color: white;
+        }
+        
+        .game-info {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            height: 30px;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+        }
+        
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+        
+        .cell:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .x {
+            color: #ff4136;
+        }
+        
+        .o {
+            color: #0074d9;
+        }
+        
+        .controls {
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0056a3;
+        }
+        
+        .result {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .x-win {
+            color: #ff4136;
+        }
+        
+        .o-win {
+            color: #0074d9;
+        }
+        
+        .tie {
+            color: #333;
+        }
+        
+        .winning-cell {
+            background-color: #e8f4fd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Крестики-Нолики</h1>
+    
+    <div class="menu-container">
+        <button class="menu-button" id="menu-button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="game-mode" id="game-mode">
+            <button id="mode-friend" class="active">Играть с другом</button>
+            <button id="mode-bot">Играть с ботом</button>
+        </div>
+    </div>
+    
+    <div class="game-info" id="game-info">Ход игрока X</div>
+    <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+    <div class="controls">
+        <button id="new-game">Новая игра</button>
+    </div>
+    <div class="result" id="result"></div>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const gameInfo = document.getElementById('game-info');
+        const newGameBtn = document.getElementById('new-game');
+        const result = document.getElementById('result');
+        const menuButton = document.getElementById('menu-button');
+        const gameMode = document.getElementById('game-mode');
+        const modeFriendBtn = document.getElementById('mode-friend');
+        const modeBotBtn = document.getElementById('mode-bot');
+        
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let gameState = ['', '', '', '', '', '', '', '', ''];
+        let isBotMode = false;
+        
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // строки
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // столбцы
+            [0, 4, 8], [2, 4, 6] // диагонали
+        ];
+        
+        function handleCellClick(event) {
+            const clickedCell = event.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
+            
+            if (gameState[clickedCellIndex] !== '' || !gameActive) {
+                return;
+            }
+            
+            // Ход игрока
+            makeMove(clickedCellIndex, currentPlayer);
+            
+            // Проверка результата после хода игрока
+            if (gameActive) {
+                checkResult();
+                
+                // Если игра с ботом и игра продолжается, ход бота
+                if (isBotMode && gameActive && currentPlayer === 'O') {
+                    setTimeout(makeBotMove, 500);
+                }
+            }
+        }
+        
+        function makeMove(index, player) {
+            gameState[index] = player;
+            cells[index].textContent = player;
+            cells[index].classList.add(player.toLowerCase());
+        }
+        
+        function makeBotMove() {
+            if (!gameActive) return;
+            
+            // Простая логика бота: случайный ход
+            const emptyCells = gameState
+                .map((cell, index) => cell === '' ? index : null)
+                .filter(cell => cell !== null);
+            
+            if (emptyCells.length > 0) {
+                const randomIndex = Math.floor(Math.random() * emptyCells.length);
+                const botMoveIndex = emptyCells[randomIndex];
+                
+                makeMove(botMoveIndex, 'O');
+                checkResult();
+            }
+        }
+        
+        function checkResult() {
+            let roundWon = false;
+            let winCombination = null;
+            
+            for (let i = 0; i < winningCombinations.length; i++) {
+                const [a, b, c] = winningCombinations[i];
+                const combination = [gameState[a], gameState[b], gameState[c]];
+                
+                if (combination.every(cell => cell === currentPlayer)) {
+                    roundWon = true;
+                    winCombination = winningCombinations[i];
+                    break;
+                }
+            }
+            
+            if (roundWon) {
+                gameActive = false;
+                result.textContent = `Игрок ${currentPlayer} выиграл!`;
+                result.classList.add(`${currentPlayer.toLowerCase()}-win`);
+                result.style.display = 'block';
+                
+                // Подсвечиваем выигрышную комбинацию
+                highlightWinningCells(winCombination);
+                return;
+            }
+            
+            if (!gameState.includes('')) {
+                gameActive = false;
+                result.textContent = 'Ничья!';
+                result.classList.add('tie');
+                result.style.display = 'block';
+                return;
+            }
+            
+            // Смена игрока
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            gameInfo.textContent = `Ход игрока ${currentPlayer}`;
+        }
+        
+        function highlightWinningCells(combination) {
+            // Подсвечиваем ячейки выигрышной комбинации
+            combination.forEach(index => {
+                cells[index].classList.add('winning-cell');
+            });
+        }
+        
+        function resetGame() {
+            currentPlayer = 'X';
+            gameActive = true;
+            gameState = ['', '', '', '', '', '', '', '', ''];
+            result.style.display = 'none';
+            result.className = 'result';
+            gameInfo.textContent = `Ход игрока ${currentPlayer}`;
+            
+            // Очищаем ячейки
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('x', 'o', 'winning-cell');
+            });
+        }
+        
+        function setGameMode(mode) {
+            isBotMode = mode === 'bot';
+            
+            // Обновляем активные кнопки
+            if (mode === 'friend') {
+                modeFriendBtn.classList.add('active');
+                modeBotBtn.classList.remove('active');
+            } else {
+                modeFriendBtn.classList.remove('active');
+                modeBotBtn.classList.add('active');
+            }
+            
+            // Закрываем меню
+            gameMode.classList.remove('active');
+            
+            resetGame();
+        }
+        
+        function toggleMenu() {
+            gameMode.classList.toggle('active');
+        }
+        
+        // Закрытие меню при клике вне его
+        document.addEventListener('click', function(event) {
+            if (!menuButton.contains(event.target) && !gameMode.contains(event.target)) {
+                gameMode.classList.remove('active');
+            }
+        });
+        
+        // Обработчики событий
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+        
+        newGameBtn.addEventListener('click', resetGame);
+        
+        menuButton.addEventListener('click', toggleMenu);
+        
+        modeFriendBtn.addEventListener('click', () => setGameMode('friend'));
+        modeBotBtn.addEventListener('click', () => setGameMode('bot'));
+    </script>
+</body>
+</html>
