@@ -972,6 +972,8 @@
                 card.onclick = () => {
                     currentThemeIndex = index;
                     applyTheme(index);
+                    // Закрываем модальное окно после выбора темы
+                    setTimeout(() => themeModal.classList.remove('active'), 200);
                 };
                 grid.appendChild(card);
             });
