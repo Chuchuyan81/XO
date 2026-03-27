@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Крестики-Нолики Modern 2.0</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f0c29">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
     <style>
         :root {
             /* Backgrounds */
@@ -430,6 +438,9 @@
         <button class="btn-menu" id="mode-bot">
             <span>🤖</span> Против бота
         </button>
+        <button class="btn-menu" id="install-pwa" style="display: none;">
+            <span>📥</span> Скачать приложение
+        </button>
         <button class="btn-menu" id="reset-score" style="margin-top: auto;">
             <span>🔄</span> Сбросить счет
         </button>
@@ -689,6 +700,50 @@
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             restartGame();
+        });
+
+        // --- Логика PWA ---
+        
+        // Регистрация Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Service Worker зарегистрирован!', reg))
+                    .catch(err => console.error('Ошибка регистрации Service Worker:', err));
+            });
+        }
+
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-pwa');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Предотвращаем автоматическое появление окна установки в Chrome 67 и более ранних версиях
+            e.preventDefault();
+            // Сохраняем событие, чтобы вызвать его позже
+            deferredPrompt = e;
+            // Показываем кнопку установки в меню
+            installBtn.style.display = 'flex';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            // Показываем окно установки
+            deferredPrompt.prompt();
+            // Ждем ответа пользователя
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`Результат установки: ${outcome}`);
+            // Очищаем переменную, так как событие можно использовать только один раз
+            deferredPrompt = null;
+            // Скрываем кнопку
+            installBtn.style.display = 'none';
+            // Закрываем меню
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('Приложение успешно установлено');
+            installBtn.style.display = 'none';
         });
     </script>
 </body>
