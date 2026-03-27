@@ -1,18 +1,9 @@
-const CACHE_NAME = 'xo-pwa-cache-v7';
-// Только явные URL: «/» и «/index.html» вместе дают лишний запрос и иногда разные ответы для Cache.put.
-const ASSETS_TO_CACHE = [
-  '/index.html',
-  '/manifest.json',
-  '/app-icon-192.png',
-  '/app-icon-512.png'
-];
+const CACHE_NAME = 'xo-pwa-cache-v8';
+// Иконки не кэшируем на install: у CDN часто 206/обрыв; манифест подтянет их отдельно.
+const ASSETS_TO_CACHE = ['/index.html', '/manifest.json'];
 
 const SKIP_HEADER = new Set(['content-encoding', 'content-length', 'transfer-encoding']);
 
-/**
- * Сохраняем в Cache копию с телом в ArrayBuffer: иначе put() часто падает с NetworkError
- * при обрыве потока (ERR_CONNECTION_RESET), хотя статус уже 200.
- */
 async function putResponseBuffered(cache, cacheKey, response) {
   const body = await response.arrayBuffer();
   const headers = new Headers();
@@ -30,9 +21,6 @@ async function putResponseBuffered(cache, cacheKey, response) {
   await cache.put(cacheKey, stored);
 }
 
-/**
- * Netlify/CDN иногда отдаёт 206 Partial Content; при 206 повторяем с cache-bust — чаще приходит полный 200.
- */
 async function precacheUrl(cache, url) {
   const bust = (u) => `${u}${u.includes('?') ? '&' : '?'}sw=${encodeURIComponent(CACHE_NAME)}`;
 
@@ -72,7 +60,6 @@ async function precacheAll(cache) {
   }
 }
 
-// Установка Service Worker и кэширование ресурсов
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -83,7 +70,6 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Активация Service Worker и очистка старого кэша
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -100,7 +86,6 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Перехват сетевых запросов
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     (async () => {
