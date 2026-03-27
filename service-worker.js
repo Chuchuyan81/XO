@@ -1,10 +1,10 @@
-const CACHE_NAME = 'xo-pwa-cache-v2';
+const CACHE_NAME = 'xo-pwa-cache-v3';
 const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
 // Установка Service Worker и кэширование ресурсов
@@ -43,7 +43,7 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request).catch(() => {
         // Если сеть недоступна, а ресурса нет в кэше (например, оффлайн)
         if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
+          return caches.match('/index.html');
         }
       });
     })
