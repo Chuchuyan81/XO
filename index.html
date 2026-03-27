@@ -47,16 +47,21 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            background: var(--bg-gradient);
+        html, body {
+            background: var(--bg-primary) !important; /* Принудительно темный фон */
+            background-image: var(--bg-gradient) !important;
             height: 100vh;
             width: 100vw;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-primary);
-            overflow: hidden;
-            position: fixed; /* Предотвращает прокрутку на мобильных */
         }
 
         .container {
@@ -67,6 +72,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            position: relative;
         }
 
         .game-wrapper {
@@ -76,10 +82,11 @@
             justify-content: center;
             max-width: 450px;
             width: 100%;
+            z-index: 10;
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: clamp(1.8em, 8vw, 2.5em);
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -151,7 +158,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(2em, 10vw, 3.5em);
+            font-size: clamp(2.5em, 12vw, 4em);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -228,7 +235,7 @@
         .side-menu {
             position: fixed;
             top: 0;
-            right: -300px;
+            right: -320px;
             width: 300px;
             height: 100vh;
             background: var(--bg-tertiary);
@@ -389,12 +396,6 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 2em; }
-            .cell { border-radius: 12px; }
-            .side-menu { width: 85%; }
-        }
     </style>
 </head>
 <body>
@@ -427,7 +428,7 @@
                     <span class="score-label">Игрок X</span>
                     <span class="score-val" id="score-x">0</span>
                 </div>
-                <div class="score-item" style="opacity: 0.5; min-width: 40px; justify-content: flex-end;">:</div>
+                <div class="score-item" style="opacity: 0.5; min-width: 40px; justify-content: center; align-items: center; font-size: 1.5em;">:</div>
                 <div class="score-item">
                     <span class="score-label">Игрок O</span>
                     <span class="score-val" id="score-o">0</span>
