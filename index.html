@@ -439,141 +439,169 @@
             background-image: none !important;
             color: #444;
         }
-        body.theme-neumorphism .game-board {
-            background: #e0e5ec;
+        body.theme-neumorphism .game-board,
+        body.theme-neumorphism .side-menu,
+        body.theme-neumorphism .modal-content,
+        body.theme-neumorphism .status-indicator,
+        body.theme-neumorphism .score-board,
+        body.theme-neumorphism .menu-toggle {
+            background: #e0e5ec !important;
             border-radius: 16px;
             box-shadow: 9px 9px 16px rgba(163,177,198,0.6), 
-                        -9px -9px 16px rgba(255,255,255,0.5);
-            padding: 20px;
-            border: none;
-            backdrop-filter: none;
+                        -9px -9px 16px rgba(255,255,255,0.5) !important;
+            border: none !important;
+            backdrop-filter: none !important;
+            color: #444 !important;
         }
-        body.theme-neumorphism .cell {
-            background: #e0e5ec;
+        body.theme-neumorphism .cell,
+        body.theme-neumorphism .btn-menu,
+        body.theme-neumorphism .modal-btn {
+            background: #e0e5ec !important;
             box-shadow: inset 5px 5px 10px #bebebe, 
-                        inset -5px -5px 10px #ffffff;
-            border: none;
+                        inset -5px -5px 10px #ffffff !important;
+            border: none !important;
             border-radius: 12px;
-            backdrop-filter: none;
+            backdrop-filter: none !important;
+            color: #444 !important;
         }
-        body.theme-neumorphism .cell.x-symbol { color: #3498db; text-shadow: none; }
-        body.theme-neumorphism .cell.o-symbol { color: #e74c3c; text-shadow: none; }
+        body.theme-neumorphism .cell.x-symbol { color: #3498db !important; text-shadow: none !important; }
+        body.theme-neumorphism .cell.o-symbol { color: #e74c3c !important; text-shadow: none !important; }
 
         /* 2. Glassmorphism */
         body.theme-glass {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
         }
-        body.theme-glass .game-board {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+        body.theme-glass .game-board,
+        body.theme-glass .side-menu,
+        body.theme-glass .modal-content,
+        body.theme-glass .status-indicator,
+        body.theme-glass .score-board,
+        body.theme-glass .menu-toggle {
+            background: rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
         }
-        body.theme-glass .cell {
-            background: rgba(255, 255, 255, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            backdrop-filter: none;
+        body.theme-glass .cell,
+        body.theme-glass .btn-menu,
+        body.theme-glass .modal-btn {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: none !important;
         }
 
         /* 3. Clean (Minimalism) */
         body.theme-clean {
-            background: #f8f9fa !important;
+            background: #ffffff !important;
             background-image: none !important;
             color: #333;
         }
-        body.theme-clean .game-board {
-            background: #ffffff;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            backdrop-filter: none;
+        body.theme-clean .game-board,
+        body.theme-clean .side-menu,
+        body.theme-clean .modal-content,
+        body.theme-clean .status-indicator,
+        body.theme-clean .score-board,
+        body.theme-clean .menu-toggle {
+            background: #ffffff !important;
+            border: 1px solid #e0e0e0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+            backdrop-filter: none !important;
+            color: #333 !important;
         }
-        body.theme-clean .cell {
-            background: #fafafa;
-            border: 1px solid #eeeeee;
-            border-radius: 8px;
-            backdrop-filter: none;
-            box-shadow: none;
+        body.theme-clean .cell,
+        body.theme-clean .btn-menu,
+        body.theme-clean .modal-btn {
+            background: #fafafa !important;
+            border: 1px solid #eeeeee !important;
+            box-shadow: none !important;
+            color: #333 !important;
         }
-        body.theme-clean .cell.x-symbol { color: #2c3e50; text-shadow: none; }
-        body.theme-clean .cell.o-symbol { color: #95a5a6; text-shadow: none; }
+        body.theme-clean .cell.x-symbol { color: #2c3e50 !important; text-shadow: none !important; }
+        body.theme-clean .cell.o-symbol { color: #95a5a6 !important; text-shadow: none !important; }
 
         /* 4. Dark Mode */
         body.theme-dark {
-            background: #0f0f1a !important;
+            background: #0a0a12 !important;
             background-image: none !important;
         }
-        body.theme-dark .game-board {
-            background: #1a1a2e;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border: none;
-            backdrop-filter: none;
+        body.theme-dark .game-board,
+        body.theme-dark .side-menu,
+        body.theme-dark .modal-content,
+        body.theme-dark .status-indicator,
+        body.theme-dark .score-board,
+        body.theme-dark .menu-toggle {
+            background: #1a1a2e !important;
+            border: 1px solid #0f3460 !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: none !important;
+            color: #ffffff !important;
         }
-        body.theme-dark .cell {
-            background: #16213e;
-            border: 2px solid #0f3460;
-            color: #e94560;
-            border-radius: 12px;
-            backdrop-filter: none;
-            box-shadow: none;
+        body.theme-dark .cell,
+        body.theme-dark .btn-menu,
+        body.theme-dark .modal-btn {
+            background: #16213e !important;
+            border: 1px solid #0f3460 !important;
+            color: #e94560 !important;
+            box-shadow: none !important;
         }
-        body.theme-dark .cell.x-symbol { color: #e94560; text-shadow: none; }
-        body.theme-dark .cell.o-symbol { color: #0f3460; text-shadow: none; }
+        body.theme-dark .cell.x-symbol { color: #e94560 !important; text-shadow: 0 0 10px #e94560 !important; }
+        body.theme-dark .cell.o-symbol { color: #00d2ff !important; text-shadow: 0 0 10px #00d2ff !important; }
 
         /* 5. Gradient Border */
         body.theme-gradient {
-            background: #f0f2f5 !important;
+            background: #f8f9fa !important;
             background-image: none !important;
-            color: #333;
         }
-        body.theme-gradient .game-board {
-            background: #ffffff;
-            border-radius: 16px;
+        body.theme-gradient .game-board,
+        body.theme-gradient .side-menu,
+        body.theme-gradient .modal-content,
+        body.theme-gradient .status-indicator,
+        body.theme-gradient .score-board,
+        body.theme-gradient .menu-toggle {
+            background: #ffffff !important;
             padding: 20px;
-            border: 3px solid transparent;
+            border: 3px solid transparent !important;
             background-image: linear-gradient(#fff, #fff), 
-                              linear-gradient(135deg, #667eea, #764ba2);
-            background-origin: border-box;
-            background-clip: content-box, border-box;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-            backdrop-filter: none;
+                              linear-gradient(135deg, #667eea, #764ba2) !important;
+            background-origin: border-box !important;
+            background-clip: content-box, border-box !important;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2) !important;
+            backdrop-filter: none !important;
+            color: #333 !important;
         }
-        body.theme-gradient .cell {
-            background: #f8f9fb;
-            border: 1px solid #e1e4e8;
-            border-radius: 12px;
-            box-shadow: none;
-            backdrop-filter: none;
+        body.theme-gradient .cell,
+        body.theme-gradient .btn-menu,
+        body.theme-gradient .modal-btn {
+            background: #f1f3f5 !important;
+            border: 1px solid #dee2e6 !important;
+            color: #333 !important;
         }
 
         /* 6. Elevation */
         body.theme-elevation {
-            background: #eee !important;
+            background: #f0f0f0 !important;
             background-image: none !important;
-            color: #222;
         }
-        body.theme-elevation .game-board {
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
-                        0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            border: none;
-            backdrop-filter: none;
+        body.theme-elevation .game-board,
+        body.theme-elevation .side-menu,
+        body.theme-elevation .modal-content,
+        body.theme-elevation .status-indicator,
+        body.theme-elevation .score-board,
+        body.theme-elevation .menu-toggle {
+            background: #ffffff !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+            border: none !important;
+            backdrop-filter: none !important;
+            color: #222 !important;
         }
-        body.theme-elevation .cell {
-            background: #f8f9fa;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border: none;
-            backdrop-filter: none;
+        body.theme-elevation .cell,
+        body.theme-elevation .btn-menu,
+        body.theme-elevation .modal-btn {
+            background: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+            border: none !important;
+            color: #222 !important;
         }
 
         /* 7. Retro / Pixel */
@@ -582,105 +610,113 @@
             background-image: none !important;
             font-family: 'Courier New', Courier, monospace !important;
         }
-        body.theme-retro .game-board {
-            background: #ffcc00;
-            border-radius: 0;
-            border: 4px solid #333333;
-            box-shadow: 8px 8px 0px #333333;
-            padding: 20px;
-            backdrop-filter: none;
+        body.theme-retro .game-board,
+        body.theme-retro .side-menu,
+        body.theme-retro .modal-content,
+        body.theme-retro .status-indicator,
+        body.theme-retro .score-board,
+        body.theme-retro .menu-toggle {
+            background: #c0c0c0 !important;
+            border: 3px solid !important;
+            border-color: #ffffff #808080 #808080 #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            backdrop-filter: none !important;
+            color: #000 !important;
         }
-        body.theme-retro .cell {
-            background: #ffffff;
-            border: 3px solid #333333;
-            border-radius: 0;
-            font-weight: 900;
-            box-shadow: none;
-            backdrop-filter: none;
+        body.theme-retro .cell,
+        body.theme-retro .btn-menu,
+        body.theme-retro .modal-btn {
+            background: #ffffff !important;
+            border: 2px solid #000 !important;
+            border-radius: 0 !important;
+            font-weight: 900 !important;
+            color: #000 !important;
         }
-        body.theme-retro .cell.x-symbol { color: #000; text-shadow: none; }
-        body.theme-retro .cell.o-symbol { color: #ff0000; text-shadow: none; }
+        body.theme-retro .cell.x-symbol { color: #000080 !important; text-shadow: none !important; }
+        body.theme-retro .cell.o-symbol { color: #800000 !important; text-shadow: none !important; }
 
         /* 8. Pastel */
         body.theme-pastel {
-            background: #fff5f5 !important;
+            background: #fffafa !important;
             background-image: none !important;
-            color: #d4a5b0;
         }
-        body.theme-pastel .game-board {
-            background: #f5e6e8;
-            border-radius: 16px;
-            border: 2px solid #e8c3c9;
-            box-shadow: 0 8px 20px rgba(232, 195, 201, 0.4);
-            padding: 20px;
-            backdrop-filter: none;
+        body.theme-pastel .game-board,
+        body.theme-pastel .side-menu,
+        body.theme-pastel .modal-content,
+        body.theme-pastel .status-indicator,
+        body.theme-pastel .score-board,
+        body.theme-pastel .menu-toggle {
+            background: #fdf2f2 !important;
+            border: 2px solid #ffeded !important;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.2) !important;
+            backdrop-filter: none !important;
+            color: #d4a5b0 !important;
         }
-        body.theme-pastel .cell {
-            background: #ffffff;
-            border: 2px solid #f5e6e8;
-            color: #d4a5b0;
+        body.theme-pastel .cell,
+        body.theme-pastel .btn-menu,
+        body.theme-pastel .modal-btn {
+            background: #ffffff !important;
+            border: 2px solid #fff5f5 !important;
+            color: #d4a5b0 !important;
             border-radius: 15px;
-            box-shadow: none;
-            backdrop-filter: none;
         }
-        body.theme-pastel .cell.x-symbol { color: #d4a5b0; text-shadow: none; }
-        body.theme-pastel .cell.o-symbol { color: #a5d4ca; text-shadow: none; }
 
         /* 9. High Contrast */
         body.theme-contrast {
-            background: #000 !important;
+            background: #000000 !important;
             background-image: none !important;
-            color: #fff;
         }
-        body.theme-contrast .game-board {
-            background: #ffffff;
-            border-radius: 12px;
-            border: 4px solid #2c3e50;
-            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
-            padding: 20px;
-            backdrop-filter: none;
+        body.theme-contrast .game-board,
+        body.theme-contrast .side-menu,
+        body.theme-contrast .modal-content,
+        body.theme-contrast .status-indicator,
+        body.theme-contrast .score-board,
+        body.theme-contrast .menu-toggle {
+            background: #ffffff !important;
+            border: 4px solid #000 !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            color: #000 !important;
         }
-        body.theme-contrast .cell {
-            background: #ecf0f1;
-            border: 3px solid #2c3e50;
-            font-weight: 800;
-            border-radius: 8px;
-            box-shadow: none;
-            backdrop-filter: none;
+        body.theme-contrast .cell,
+        body.theme-contrast .btn-menu,
+        body.theme-contrast .modal-btn {
+            background: #ffffff !important;
+            border: 3px solid #000 !important;
+            font-weight: 900 !important;
+            color: #000 !important;
         }
-        body.theme-contrast .cell.x-symbol { color: #e74c3c; text-shadow: none; opacity: 1; }
-        body.theme-contrast .cell.o-symbol { color: #3498db; text-shadow: none; opacity: 1; }
+        body.theme-contrast .cell.x-symbol { color: #ff0000 !important; text-shadow: none !important; opacity: 1 !important; }
+        body.theme-contrast .cell.o-symbol { color: #0000ff !important; text-shadow: none !important; opacity: 1 !important; }
 
         /* 10. Material Design */
         body.theme-material {
-            background: #f5f5f5 !important;
+            background: #fafafa !important;
             background-image: none !important;
-            color: #212121;
         }
-        body.theme-material .game-board {
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1),
-                        0 4px 8px rgba(0,0,0,0.1),
-                        0 8px 16px rgba(0,0,0,0.1);
-            padding: 20px;
-            border: none;
-            backdrop-filter: none;
+        body.theme-material .game-board,
+        body.theme-material .side-menu,
+        body.theme-material .modal-content,
+        body.theme-material .status-indicator,
+        body.theme-material .score-board,
+        body.theme-material .menu-toggle {
+            background: #ffffff !important;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            backdrop-filter: none !important;
+            color: #212121 !important;
         }
-        body.theme-material .cell {
-            background: #fafafa;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-            border: none;
-            transition: box-shadow 0.3s ease;
-            backdrop-filter: none;
+        body.theme-material .cell,
+        body.theme-material .btn-menu,
+        body.theme-material .modal-btn {
+            background: #f5f5f5 !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+            border: none !important;
+            color: #212121 !important;
         }
-        body.theme-material .cell:hover:not(.occupied) {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
-        }
-        body.theme-material .cell.x-symbol { color: #6200ee; text-shadow: none; }
-        body.theme-material .cell.o-symbol { color: #03dac6; text-shadow: none; }
     </style>
 </head>
 <body>
