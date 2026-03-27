@@ -1,0 +1,10 @@
+# Уменьшает шанс ответа 206 Partial Content при precache в Service Worker (Cache API требует полные ответы).
+[[headers]]
+  for = "/app-icon-192.png"
+  [headers.values]
+    Accept-Ranges = "none"
+
+[[headers]]
+  for = "/app-icon-512.png"
+  [headers.values]
+    Accept-Ranges = "none"
