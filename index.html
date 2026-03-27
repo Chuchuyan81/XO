@@ -431,6 +431,103 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
+        /* --- Theme Selector Modal --- */
+        .theme-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1500;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .theme-modal-overlay.active {
+            display: flex;
+        }
+
+        .theme-modal-content {
+            background: var(--bg-tertiary);
+            padding: 30px;
+            border-radius: 25px;
+            max-width: 90%;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .theme-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
+
+        .theme-card.active {
+            border-color: var(--player-x-primary);
+            box-shadow: 0 0 15px var(--player-x-glow);
+        }
+
+        .theme-preview {
+            width: 100%;
+            height: 60px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            padding: 6px;
+            background: #222;
+        }
+
+        .preview-box {
+            border-radius: 3px;
+        }
+
+        .theme-name {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Preview Palettes */
+        .p-default { background: #0f0c29; } .p-default .b1 { background: #00d2ff; } .p-default .b2 { background: #f093fb; }
+        .p-neumorphism { background: #e0e5ec; } .p-neumorphism .b1 { background: #3498db; } .p-neumorphism .b2 { background: #e74c3c; }
+        .p-glass { background: #667eea; } .p-glass .b1 { background: rgba(255,255,255,0.5); } .p-glass .b2 { background: rgba(255,255,255,0.3); }
+        .p-clean { background: #fff; } .p-clean .b1 { background: #2c3e50; } .p-clean .b2 { background: #95a5a6; }
+        .p-dark { background: #1a1a2e; } .p-dark .b1 { background: #e94560; } .p-dark .b2 { background: #0f3460; }
+        .p-gradient { background: #f8f9fa; } .p-gradient .b1 { background: #667eea; } .p-gradient .b2 { background: #764ba2; }
+        .p-elevation { background: #f0f0f0; } .p-elevation .b1 { background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); } .p-elevation .b2 { background: #fff; }
+        .p-retro { background: #008080; } .p-retro .b1 { background: #ffcc00; } .p-retro .b2 { background: #c0c0c0; }
+        .p-pastel { background: #fff5f5; } .p-pastel .b1 { background: #f5e6e8; } .p-pastel .b2 { background: #a5d4ca; }
+        .p-contrast { background: #000; } .p-contrast .b1 { background: #fff; border: 1px solid #000; } .p-contrast .b2 { background: #ff0000; }
+        .p-material { background: #fafafa; } .p-material .b1 { background: #6200ee; } .p-material .b2 { background: #03dac6; }
+
         /* --- Themes --- */
 
         /* 1. Neumorphism */
@@ -792,6 +889,17 @@
         </div>
     </div>
 
+    <!-- Theme Selector Modal -->
+    <div class="theme-modal-overlay" id="theme-modal">
+        <div class="theme-modal-content">
+            <h2 class="modal-title" style="font-size: 1.5em; margin-bottom: 10px;">Выберите оформление</h2>
+            <div class="theme-grid" id="theme-grid">
+                <!-- Themes will be injected by JS -->
+            </div>
+            <button class="modal-btn" id="close-themes" style="margin-top: 25px; width: 100%; padding: 12px;">Закрыть</button>
+        </div>
+    </div>
+
     <script>
         const boardElement = document.getElementById('board');
         const cells = document.querySelectorAll('.cell');
@@ -819,40 +927,74 @@
         let scores = { X: 0, O: 0 };
 
         const themes = [
-            'default',
-            'theme-neumorphism',
-            'theme-glass',
-            'theme-clean',
-            'theme-dark',
-            'theme-gradient',
-            'theme-elevation',
-            'theme-retro',
-            'theme-pastel',
-            'theme-contrast',
-            'theme-material'
+            { id: 'default', name: 'Стандартная', class: 'p-default' },
+            { id: 'theme-neumorphism', name: 'Нейморфизм', class: 'p-neumorphism' },
+            { id: 'theme-glass', name: 'Глассморфизм', class: 'p-glass' },
+            { id: 'theme-clean', name: 'Минимализм', class: 'p-clean' },
+            { id: 'theme-dark', name: 'Тёмная тема', class: 'p-dark' },
+            { id: 'theme-gradient', name: 'Градиент', class: 'p-gradient' },
+            { id: 'theme-elevation', name: 'Elevation', class: 'p-elevation' },
+            { id: 'theme-retro', name: 'Ретро', class: 'p-retro' },
+            { id: 'theme-pastel', name: 'Пастель', class: 'p-pastel' },
+            { id: 'theme-contrast', name: 'Контраст', class: 'p-contrast' },
+            { id: 'theme-material', name: 'Material', class: 'p-material' }
         ];
         let currentThemeIndex = parseInt(localStorage.getItem('xo-theme-index')) || 0;
 
         function applyTheme(index) {
             // Удаляем все темы
-            document.body.classList.remove(...themes.filter(t => t !== 'default'));
+            themes.forEach(t => {
+                if (t.id !== 'default') document.body.classList.remove(t.id);
+            });
             // Добавляем выбранную тему
-            if (themes[index] !== 'default') {
-                document.body.classList.add(themes[index]);
+            if (themes[index].id !== 'default') {
+                document.body.classList.add(themes[index].id);
             }
             localStorage.setItem('xo-theme-index', index);
+            renderThemeGrid();
+        }
+
+        function renderThemeGrid() {
+            const grid = document.getElementById('theme-grid');
+            grid.innerHTML = '';
+            themes.forEach((theme, index) => {
+                const card = document.createElement('div');
+                card.className = `theme-card ${index === currentThemeIndex ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="theme-preview ${theme.class}">
+                        <div class="preview-box b1"></div>
+                        <div class="preview-box b2"></div>
+                        <div class="preview-box b1" style="opacity: 0.5"></div>
+                    </div>
+                    <span class="theme-name">${theme.name}</span>
+                `;
+                card.onclick = () => {
+                    currentThemeIndex = index;
+                    applyTheme(index);
+                };
+                grid.appendChild(card);
+            });
         }
 
         // Применяем тему при загрузке
         applyTheme(currentThemeIndex);
 
+        const themeModal = document.getElementById('theme-modal');
+        const closeThemesBtn = document.getElementById('close-themes');
+
         changeThemeBtn.addEventListener('click', () => {
-            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-            applyTheme(currentThemeIndex);
-            
-            // Закрываем меню для лучшего UX
+            themeModal.classList.add('active');
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
+        });
+
+        closeThemesBtn.addEventListener('click', () => {
+            themeModal.classList.remove('active');
+        });
+
+        // Закрытие модалки при клике вне контента
+        themeModal.addEventListener('click', (e) => {
+            if (e.target === themeModal) themeModal.classList.remove('active');
         });
 
         const winningConditions = [
