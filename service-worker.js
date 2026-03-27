@@ -1,15 +1,37 @@
-const CACHE_NAME = 'xo-pwa-cache-v6';
+const CACHE_NAME = 'xo-pwa-cache-v7';
+// Только явные URL: «/» и «/index.html» вместе дают лишний запрос и иногда разные ответы для Cache.put.
 const ASSETS_TO_CACHE = [
-  '/',
   '/index.html',
   '/manifest.json',
   '/app-icon-192.png',
   '/app-icon-512.png'
 ];
 
+const SKIP_HEADER = new Set(['content-encoding', 'content-length', 'transfer-encoding']);
+
 /**
- * Netlify/CDN иногда отдаёт 206 Partial Content; Cache.add/addAll с таким ответом падают с NetworkError.
- * Тянем ресурс отдельным fetch, при 206 повторяем с cache-bust query — обычно приходит полный 200.
+ * Сохраняем в Cache копию с телом в ArrayBuffer: иначе put() часто падает с NetworkError
+ * при обрыве потока (ERR_CONNECTION_RESET), хотя статус уже 200.
+ */
+async function putResponseBuffered(cache, cacheKey, response) {
+  const body = await response.arrayBuffer();
+  const headers = new Headers();
+  response.headers.forEach((value, key) => {
+    if (!SKIP_HEADER.has(key.toLowerCase())) {
+      headers.set(key, value);
+    }
+  });
+  headers.set('Content-Length', String(body.byteLength));
+  const stored = new Response(body, {
+    status: 200,
+    statusText: 'OK',
+    headers
+  });
+  await cache.put(cacheKey, stored);
+}
+
+/**
+ * Netlify/CDN иногда отдаёт 206 Partial Content; при 206 повторяем с cache-bust — чаще приходит полный 200.
  */
 async function precacheUrl(cache, url) {
   const bust = (u) => `${u}${u.includes('?') ? '&' : '?'}sw=${encodeURIComponent(CACHE_NAME)}`;
@@ -18,7 +40,8 @@ async function precacheUrl(cache, url) {
     method: 'GET',
     cache: 'reload',
     credentials: 'omit',
-    mode: 'same-origin'
+    mode: 'same-origin',
+    redirect: 'follow'
   });
 
   if (res.status === 206 || !res.ok) {
@@ -26,12 +49,13 @@ async function precacheUrl(cache, url) {
       method: 'GET',
       cache: 'reload',
       credentials: 'omit',
-      mode: 'same-origin'
+      mode: 'same-origin',
+      redirect: 'follow'
     });
   }
 
   if (res.ok && res.status === 200 && res.type !== 'opaque') {
-    await cache.put(url, res.clone());
+    await putResponseBuffered(cache, url, res);
     return;
   }
 
@@ -79,14 +103,24 @@ self.addEventListener('activate', (event) => {
 // Перехват сетевых запросов
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Если ресурс найден в кэше, возвращаем его. Иначе идем в сеть.
-      return response || fetch(event.request).catch(() => {
-        // Если сеть недоступна, а ресурса нет в кэше (например, оффлайн)
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+    (async () => {
+      const req = event.request;
+      let cached = await caches.match(req);
+      if (!cached && req.mode === 'navigate') {
+        const path = new URL(req.url).pathname;
+        if (path === '/' || path === '') {
+          cached = await caches.match('/index.html');
         }
-      });
-    })
+      }
+      if (cached) return cached;
+      try {
+        return await fetch(req);
+      } catch {
+        if (req.mode === 'navigate') {
+          return (await caches.match('/index.html')) || Response.error();
+        }
+        return Response.error();
+      }
+    })()
   );
 });
