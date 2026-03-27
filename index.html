@@ -430,6 +430,257 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
+
+        /* --- Themes --- */
+
+        /* 1. Neumorphism */
+        body.theme-neumorphism {
+            background: #e0e5ec !important;
+            background-image: none !important;
+            color: #444;
+        }
+        body.theme-neumorphism .game-board {
+            background: #e0e5ec;
+            border-radius: 16px;
+            box-shadow: 9px 9px 16px rgba(163,177,198,0.6), 
+                        -9px -9px 16px rgba(255,255,255,0.5);
+            padding: 20px;
+            border: none;
+            backdrop-filter: none;
+        }
+        body.theme-neumorphism .cell {
+            background: #e0e5ec;
+            box-shadow: inset 5px 5px 10px #bebebe, 
+                        inset -5px -5px 10px #ffffff;
+            border: none;
+            border-radius: 12px;
+            backdrop-filter: none;
+        }
+        body.theme-neumorphism .cell.x-symbol { color: #3498db; text-shadow: none; }
+        body.theme-neumorphism .cell.o-symbol { color: #e74c3c; text-shadow: none; }
+
+        /* 2. Glassmorphism */
+        body.theme-glass {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+        body.theme-glass .game-board {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        body.theme-glass .cell {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            backdrop-filter: none;
+        }
+
+        /* 3. Clean (Minimalism) */
+        body.theme-clean {
+            background: #f8f9fa !important;
+            background-image: none !important;
+            color: #333;
+        }
+        body.theme-clean .game-board {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            backdrop-filter: none;
+        }
+        body.theme-clean .cell {
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+        body.theme-clean .cell.x-symbol { color: #2c3e50; text-shadow: none; }
+        body.theme-clean .cell.o-symbol { color: #95a5a6; text-shadow: none; }
+
+        /* 4. Dark Mode */
+        body.theme-dark {
+            background: #0f0f1a !important;
+            background-image: none !important;
+        }
+        body.theme-dark .game-board {
+            background: #1a1a2e;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border: none;
+            backdrop-filter: none;
+        }
+        body.theme-dark .cell {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            color: #e94560;
+            border-radius: 12px;
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+        body.theme-dark .cell.x-symbol { color: #e94560; text-shadow: none; }
+        body.theme-dark .cell.o-symbol { color: #0f3460; text-shadow: none; }
+
+        /* 5. Gradient Border */
+        body.theme-gradient {
+            background: #f0f2f5 !important;
+            background-image: none !important;
+            color: #333;
+        }
+        body.theme-gradient .game-board {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            border: 3px solid transparent;
+            background-image: linear-gradient(#fff, #fff), 
+                              linear-gradient(135deg, #667eea, #764ba2);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            backdrop-filter: none;
+        }
+        body.theme-gradient .cell {
+            background: #f8f9fb;
+            border: 1px solid #e1e4e8;
+            border-radius: 12px;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+
+        /* 6. Elevation */
+        body.theme-elevation {
+            background: #eee !important;
+            background-image: none !important;
+            color: #222;
+        }
+        body.theme-elevation .game-board {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                        0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border: none;
+            backdrop-filter: none;
+        }
+        body.theme-elevation .cell {
+            background: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            backdrop-filter: none;
+        }
+
+        /* 7. Retro / Pixel */
+        body.theme-retro {
+            background: #008080 !important;
+            background-image: none !important;
+            font-family: 'Courier New', Courier, monospace !important;
+        }
+        body.theme-retro .game-board {
+            background: #ffcc00;
+            border-radius: 0;
+            border: 4px solid #333333;
+            box-shadow: 8px 8px 0px #333333;
+            padding: 20px;
+            backdrop-filter: none;
+        }
+        body.theme-retro .cell {
+            background: #ffffff;
+            border: 3px solid #333333;
+            border-radius: 0;
+            font-weight: 900;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+        body.theme-retro .cell.x-symbol { color: #000; text-shadow: none; }
+        body.theme-retro .cell.o-symbol { color: #ff0000; text-shadow: none; }
+
+        /* 8. Pastel */
+        body.theme-pastel {
+            background: #fff5f5 !important;
+            background-image: none !important;
+            color: #d4a5b0;
+        }
+        body.theme-pastel .game-board {
+            background: #f5e6e8;
+            border-radius: 16px;
+            border: 2px solid #e8c3c9;
+            box-shadow: 0 8px 20px rgba(232, 195, 201, 0.4);
+            padding: 20px;
+            backdrop-filter: none;
+        }
+        body.theme-pastel .cell {
+            background: #ffffff;
+            border: 2px solid #f5e6e8;
+            color: #d4a5b0;
+            border-radius: 15px;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+        body.theme-pastel .cell.x-symbol { color: #d4a5b0; text-shadow: none; }
+        body.theme-pastel .cell.o-symbol { color: #a5d4ca; text-shadow: none; }
+
+        /* 9. High Contrast */
+        body.theme-contrast {
+            background: #000 !important;
+            background-image: none !important;
+            color: #fff;
+        }
+        body.theme-contrast .game-board {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 4px solid #2c3e50;
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+            padding: 20px;
+            backdrop-filter: none;
+        }
+        body.theme-contrast .cell {
+            background: #ecf0f1;
+            border: 3px solid #2c3e50;
+            font-weight: 800;
+            border-radius: 8px;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+        body.theme-contrast .cell.x-symbol { color: #e74c3c; text-shadow: none; opacity: 1; }
+        body.theme-contrast .cell.o-symbol { color: #3498db; text-shadow: none; opacity: 1; }
+
+        /* 10. Material Design */
+        body.theme-material {
+            background: #f5f5f5 !important;
+            background-image: none !important;
+            color: #212121;
+        }
+        body.theme-material .game-board {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1),
+                        0 4px 8px rgba(0,0,0,0.1),
+                        0 8px 16px rgba(0,0,0,0.1);
+            padding: 20px;
+            border: none;
+            backdrop-filter: none;
+        }
+        body.theme-material .cell {
+            background: #fafafa;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            border: none;
+            transition: box-shadow 0.3s ease;
+            backdrop-filter: none;
+        }
+        body.theme-material .cell:hover:not(.occupied) {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+        body.theme-material .cell.x-symbol { color: #6200ee; text-shadow: none; }
+        body.theme-material .cell.o-symbol { color: #03dac6; text-shadow: none; }
     </style>
 </head>
 <body>
@@ -443,6 +694,9 @@
         </button>
         <button class="btn-menu" id="mode-bot">
             <span>🤖</span> Против бота
+        </button>
+        <button class="btn-menu" id="change-theme">
+            <span>🎨</span> Сменить оформление
         </button>
         <button class="btn-menu" id="install-pwa" style="display: none;">
             <span>📥</span> Скачать приложение
@@ -514,6 +768,7 @@
         const resetScoreBtn = document.getElementById('reset-score');
         const modeFriendBtn = document.getElementById('mode-friend');
         const modeBotBtn = document.getElementById('mode-bot');
+        const changeThemeBtn = document.getElementById('change-theme');
         const scoreXElement = document.getElementById('score-x');
         const scoreOElement = document.getElementById('score-o');
         const winLine = document.getElementById('win-line');
@@ -526,6 +781,43 @@
         let gameState = ["", "", "", "", "", "", "", "", ""];
         let isBotMode = false;
         let scores = { X: 0, O: 0 };
+
+        const themes = [
+            'default',
+            'theme-neumorphism',
+            'theme-glass',
+            'theme-clean',
+            'theme-dark',
+            'theme-gradient',
+            'theme-elevation',
+            'theme-retro',
+            'theme-pastel',
+            'theme-contrast',
+            'theme-material'
+        ];
+        let currentThemeIndex = parseInt(localStorage.getItem('xo-theme-index')) || 0;
+
+        function applyTheme(index) {
+            // Удаляем все темы
+            document.body.classList.remove(...themes.filter(t => t !== 'default'));
+            // Добавляем выбранную тему
+            if (themes[index] !== 'default') {
+                document.body.classList.add(themes[index]);
+            }
+            localStorage.setItem('xo-theme-index', index);
+        }
+
+        // Применяем тему при загрузке
+        applyTheme(currentThemeIndex);
+
+        changeThemeBtn.addEventListener('click', () => {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            applyTheme(currentThemeIndex);
+            
+            // Закрываем меню для лучшего UX
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
 
         const winningConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
