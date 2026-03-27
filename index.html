@@ -48,7 +48,7 @@
         }
 
         html, body {
-            background: var(--bg-primary) !important; /* Принудительно темный фон */
+            background: var(--bg-primary) !important;
             background-image: var(--bg-gradient) !important;
             height: 100vh;
             width: 100vw;
@@ -70,9 +70,22 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            justify-content: space-between; /* Распределяем элементы: заголовок сверху, доска в центре, счет снизу */
+            padding: 40px 20px;
             position: relative;
+        }
+
+        .header-section {
+            width: 100%;
+            text-align: center;
+        }
+
+        .footer-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
 
         .game-wrapper {
@@ -83,6 +96,7 @@
             max-width: 450px;
             width: 100%;
             z-index: 10;
+            flex-grow: 1; /* Позволяет обертке занимать свободное пространство для центрирования доски */
         }
 
         h1 {
@@ -91,14 +105,13 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
         }
 
         .score-board {
             display: flex;
             gap: 20px;
-            margin-bottom: 20px;
             font-size: 1.1em;
             background: var(--glass-bg);
             padding: 10px 25px;
@@ -131,13 +144,14 @@
             border-radius: 15px;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-backdrop);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             font-size: 1.2em;
             font-weight: 500;
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
             text-align: center;
             width: 100%;
+            max-width: 400px;
         }
 
         .game-board {
@@ -145,6 +159,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
             width: 100%;
+            max-width: 400px;
             aspect-ratio: 1;
             position: relative;
         }
@@ -420,21 +435,11 @@
     </div>
 
     <div class="container">
-        <div class="game-wrapper">
+        <div class="header-section">
             <h1>КРЕСТИКИ-НОЛИКИ</h1>
-            
-            <div class="score-board">
-                <div class="score-item">
-                    <span class="score-label">Игрок X</span>
-                    <span class="score-val" id="score-x">0</span>
-                </div>
-                <div class="score-item" style="opacity: 0.5; min-width: 40px; justify-content: center; align-items: center; font-size: 1.5em;">:</div>
-                <div class="score-item">
-                    <span class="score-label">Игрок O</span>
-                    <span class="score-val" id="score-o">0</span>
-                </div>
-            </div>
+        </div>
 
+        <div class="game-wrapper">
             <div class="status-indicator" id="status">Ход Игрока X</div>
             
             <div class="game-board" id="board">
@@ -448,6 +453,20 @@
                 <div class="cell" data-index="7"></div>
                 <div class="cell" data-index="8"></div>
                 <div class="winning-line" id="win-line"></div>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <div class="score-board">
+                <div class="score-item">
+                    <span class="score-label">Игрок X</span>
+                    <span class="score-val" id="score-x">0</span>
+                </div>
+                <div class="score-item" style="opacity: 0.5; min-width: 40px; justify-content: center; align-items: center; font-size: 1.5em;">:</div>
+                <div class="score-item">
+                    <span class="score-label">Игрок O</span>
+                    <span class="score-val" id="score-o">0</span>
+                </div>
             </div>
         </div>
     </div>
